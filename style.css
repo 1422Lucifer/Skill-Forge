@@ -14,7 +14,28 @@
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: var(--font-ui); color: var(--text-main); background: var(--bg-dark); overflow-x: hidden; }
+body { 
+    font-family: var(--font-ui); 
+    color: var(--text-main); 
+    background: var(--bg-dark); 
+    overflow-x: hidden; 
+}
+
+/* CUSTOM SCROLLBAR (Sleek dark theme) */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #484f58;
+}
+
 .logo { font-size: 2rem; font-family: var(--font-code); color: var(--text-main); margin-bottom: 30px; }
 .glow-text { color: var(--accent-green); text-shadow: 0 0 10px rgba(46, 160, 67, 0.5); }
 .hidden { display: none !important; }
@@ -23,11 +44,12 @@ body { font-family: var(--font-ui); color: var(--text-main); background: var(--b
 .dynamic-xp {
     font-family: var(--font-code);
     font-weight: 900;
-    color: var(--accent-green); /* Default to python color */
+    color: var(--accent-green); 
     transition: color 0.3s ease;
 }
 
-.app-container { display: flex; max-width: 1200px; margin: 0 auto; height: 100vh; }
+/* FIX: Changed max-width to 100% to push the scrollbar to the screen edge */
+.app-container { display: flex; width: 100%; height: 100vh; overflow: hidden; }
 .sidebar { width: 250px; padding: 20px; border-right: 1px solid var(--border-color); background: var(--bg-dark); }
 .nav-menu { list-style: none; font-family: var(--font-code); }
 .nav-menu li { padding: 15px; margin-bottom: 5px; border-radius: 8px; font-size: 1rem; font-weight: 600; color: var(--text-muted); cursor: pointer; display: flex; align-items: center; gap: 15px; transition: all 0.2s; }
@@ -37,7 +59,8 @@ body { font-family: var(--font-ui); color: var(--text-main); background: var(--b
 .main-content { flex: 1; overflow-y: auto; padding: 20px 0 100px; position: relative; }
 .top-stats { display: flex; justify-content: flex-end; padding: 0 40px 20px; gap: 20px; font-weight: bold; font-family: var(--font-code); }
 
-.track-tabs { display: flex; justify-content: center; gap: 15px; margin-bottom: 30px; border-bottom: 1px solid var(--border-color); padding-bottom: 20px; }
+/* FIX: Removed the ugly border-bottom layout line here */
+.track-tabs { display: flex; justify-content: center; gap: 15px; margin-bottom: 40px; }
 .tab-btn { background: transparent; border: 2px solid var(--border-color); color: var(--text-muted); padding: 10px 20px; border-radius: 8px; font-family: var(--font-code); font-weight: bold; cursor: pointer; transition: 0.2s; }
 .tab-btn.active { background: var(--panel-bg); border-color: var(--accent-blue); color: var(--accent-blue); }
 
@@ -46,7 +69,7 @@ body { font-family: var(--font-ui); color: var(--text-main); background: var(--b
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
 .unit-section { margin-bottom: 40px; }
-.unit-header { margin: 20px auto; width: 90%; max-width: 600px; padding: 20px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--border-color); }
+.unit-header { margin: 0 auto 30px; width: 90%; max-width: 600px; padding: 20px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--border-color); }
 .bg-terminal { background: linear-gradient(135deg, var(--panel-bg), #000); border-left: 4px solid var(--accent-green); }
 .bg-aptitude { background: linear-gradient(135deg, var(--panel-bg), #000); border-left: 4px solid var(--accent-purple); }
 .bg-comm { background: linear-gradient(135deg, var(--panel-bg), #000); border-left: 4px solid var(--accent-orange); }
@@ -55,7 +78,7 @@ body { font-family: var(--font-ui); color: var(--text-main); background: var(--b
 .bg-aptitude h2 { color: var(--accent-purple); font-family: var(--font-code); font-size: 1.2rem; }
 .bg-comm h2 { color: var(--accent-orange); font-family: var(--font-code); font-size: 1.2rem; }
 
-.path-container { display: flex; flex-direction: column; align-items: center; gap: 30px; padding: 30px 0; }
+.path-container { display: flex; flex-direction: column; align-items: center; gap: 30px; padding: 20px 0; }
 .node-wrapper { position: relative; width: 80px; height: 80px; }
 .pos-0 { margin-left: 0; } .pos-left-1 { margin-left: -70px; } .pos-left-2 { margin-left: -140px; }
 .pos-right-1 { margin-left: 70px; } .pos-right-2 { margin-left: 140px; }
@@ -69,8 +92,9 @@ body { font-family: var(--font-ui); color: var(--text-main); background: var(--b
 .node.completed.aptitude-node { background: var(--accent-purple); border-color: var(--accent-purple); }
 .node.completed.comm-node { background: var(--accent-orange); border-color: var(--accent-orange); }
 
-.dashboard-container { padding: 40px 10%; }
-.dash-title { font-family: var(--font-code); font-size: 2rem; margin-bottom: 30px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; }
+.dashboard-container { padding: 40px 10%; max-width: 1000px; margin: 0 auto;}
+/* FIX: Removed bottom-border on dash title for cleaner UI */
+.dash-title { font-family: var(--font-code); font-size: 2rem; margin-bottom: 30px; }
 .dash-profile { display: flex; align-items: center; gap: 20px; background: var(--panel-bg); padding: 20px; border-radius: 12px; border: 1px solid var(--border-color); margin-bottom: 30px; }
 .avatar { width: 60px; height: 60px; border-radius: 50%; background: var(--accent-blue); display: flex; justify-content: center; align-items: center; font-size: 2rem; font-weight: bold; color: #000; }
 .user-info h3 { font-size: 1.5rem; } .user-info p { color: var(--text-muted); }

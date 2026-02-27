@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skill Forge | AI Development Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="main-view" class="app-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <h1 class="logo">skill<span class="glow-text">Forge_</span></h1>
+            <ul class="nav-menu">
+                <li id="nav-learn" class="active" onclick="switchNav('learn')"><span class="icon">/></span> Learn</li>
+                <li id="nav-leagues" onclick="switchNav('leagues')"><span class="icon">🏆</span> Leagues</li>
+                <li id="nav-ai" onclick="switchNav('ai')"><span class="icon">🤖</span> AI Coach</li>
+                <li id="nav-dashboard" onclick="switchNav('dashboard')"><span class="icon">#</span> Dashboard</li>
+            </ul>
+        </nav>
+
+        <!-- LEARNING PATH VIEW -->
+        <main id="view-learn" class="main-content">
+            <div class="top-stats">
+                <div class="stat streak"><span class="icon">🔥</span> <span class="ui-streak">0</span></div>
+                <!-- Dynamic XP Icon updated here -->
+                <div class="stat gems"><span class="icon dynamic-xp">XP</span> <span class="ui-xp">0</span></div>
+                <div class="stat hearts"><span class="icon">❤️</span> <span class="ui-hearts">0</span></div>
+            </div>
+
+            <div class="track-tabs">
+                <button class="tab-btn active" onclick="switchTrack('python')">Python</button>
+                <button class="tab-btn" onclick="switchTrack('aptitude')">Aptitude</button>
+                <button class="tab-btn" onclick="switchTrack('communication')">Communication</button>
+            </div>
+
+            <!-- PATHS -->
+            <div id="path-python" class="track-content active-track">
+                <section class="unit-section">
+                    <div class="unit-header bg-terminal"><div class="unit-info"><h2>Python Basics</h2></div></div>
+                    <div class="path-container">
+                        <div class="node-wrapper pos-0"><div id="node-python-1" class="node active" onclick="showPopup(this, 'Print', 'python', 1)">&gt;_</div></div>
+                        <div class="node-wrapper pos-left-1"><div id="node-python-2" class="node locked">🔒</div></div>
+                        <div class="node-wrapper pos-left-2"><div id="node-python-3" class="node locked">🔒</div></div>
+                        <div class="node-wrapper pos-left-1"><div id="node-python-4" class="node locked">🔒</div></div>
+                        <div class="node-wrapper pos-0"><div id="node-python-5" class="node locked treasure">🔒</div></div>
+                    </div>
+                </section>
+            </div>
+
+            <div id="path-aptitude" class="track-content">
+                <section class="unit-section">
+                    <div class="unit-header bg-aptitude"><div class="unit-info"><h2>Logic & Math</h2></div></div>
+                    <div class="path-container">
+                        <div class="node-wrapper pos-0"><div id="node-aptitude-1" class="node active aptitude-node" onclick="showPopup(this, 'Algebra', 'aptitude', 1)">∑</div></div>
+                        <div class="node-wrapper pos-right-1"><div id="node-aptitude-2" class="node locked">🔒</div></div>
+                        <div class="node-wrapper pos-right-2"><div id="node-aptitude-3" class="node locked">🔒</div></div>
+                        <div class="node-wrapper pos-right-1"><div id="node-aptitude-4" class="node locked">🔒</div></div>
+                        <div class="node-wrapper pos-0"><div id="node-aptitude-5" class="node locked treasure">🔒</div></div>
+                    </div>
+                </section>
+            </div>
+
+            <div id="path-communication" class="track-content">
+                <section class="unit-section">
+                    <div class="unit-header bg-comm"><div class="unit-info"><h2>Professional Skills</h2></div></div>
+                    <div class="path-container">
+                        <div class="node-wrapper pos-0"><div id="node-communication-1" class="node active comm-node" onclick="showPopup(this, 'Greetings', 'communication', 1)">💬</div></div>
+                        <div class="node-wrapper pos-left-1"><div id="node-communication-2" class="node locked">🔒</div></div>
+                        <div class="node-wrapper pos-left-2"><div id="node-communication-3" class="node locked">🔒</div></div>
+                        <div class="node-wrapper pos-left-1"><div id="node-communication-4" class="node locked">🔒</div></div>
+                        <div class="node-wrapper pos-0"><div id="node-communication-5" class="node locked treasure">🔒</div></div>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <!-- LEADERBOARD VIEW -->
+        <main id="view-leagues" class="main-content hidden">
+            <div class="dashboard-container">
+                <h2 class="dash-title">Global <span class="glow-text" style="color: var(--accent-blue)">Leagues</span></h2>
+                <div id="league-content" class="dash-card" style="text-align: left;"></div>
+            </div>
+        </main>
+
+        <!-- AI COACH VIEW -->
+        <main id="view-ai" class="main-content hidden">
+            <div class="dashboard-container">
+                <h2 class="dash-title">AI <span class="glow-text" style="color: var(--accent-purple)">Insights & Coach</span></h2>
+                
+                <div class="ai-stats-grid">
+                    <div class="ai-card" style="align-items: center;">
+                        <div class="pie-chart-container">
+                            <div class="pie-chart" id="ai-accuracy-chart">
+                                <span id="ai-accuracy-val">0%</span>
+                            </div>
+                        </div>
+                        <h4 style="color: var(--text-muted); font-family: var(--font-code);">Aggregate Accuracy</h4>
+                    </div>
+                    <div class="ai-card">
+                        <h4 style="color: var(--accent-purple); margin-bottom: 15px; font-family: var(--font-code);">Model Predictions</h4>
+                        <ul class="prediction-list">
+                            <li>🎯 <strong>Estimated Track Mastery:</strong> <span id="ai-pred-mastery" style="color:var(--text-main)">...</span></li>
+                            <li>🧠 <strong>Cognitive Retention:</strong> <span id="ai-pred-retention" style="color:var(--text-main)">...</span></li>
+                            <li>⚡ <strong>Learning Velocity:</strong> <span id="ai-pred-velocity" style="color:var(--text-main)">...</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 30px; margin-bottom: 15px; font-family: var(--font-code); color: var(--text-muted);">Feedback Logs</h3>
+                <div id="ai-feedback-list" style="display: flex; flex-direction: column; gap: 15px;"></div>
+            </div>
+        </main>
+
+        <!-- DASHBOARD VIEW -->
+        <main id="view-dashboard" class="main-content hidden">
+            <div class="dashboard-container">
+                <h2 class="dash-title">User <span class="glow-text">Dashboard</span></h2>
+                <div class="dash-profile">
+                    <div class="avatar">H</div>
+                    <div class="user-info">
+                        <h3 id="dash-username">Username</h3>
+                        <p>Joined: <span id="dash-joined"></span></p>
+                    </div>
+                    <div style="margin-left: auto; display: flex; gap: 10px;">
+                        <button class="reset-btn" onclick="DB.refillHearts()" style="background: var(--accent-blue);">+ Refill Hearts</button>
+                        <button class="reset-btn" onclick="DB.resetData()">Reset Progress</button>
+                    </div>
+                </div>
+                <div class="dash-grid">
+                    <!-- Dashboard XP icon -->
+                    <div class="dash-card"><h4>Total <span class="dynamic-xp">XP</span></h4><div class="dash-stat" id="dash-xp" style="color: var(--accent-blue)">0</div></div>
+                    <div class="dash-card"><h4>Current Streak</h4><div class="dash-stat" id="dash-streak" style="color: var(--accent-green)">0 🔥</div></div>
+                    <div class="dash-card"><h4>Python Nodes</h4><div class="dash-stat" id="dash-python-nodes" style="color: var(--accent-green)">0</div></div>
+                    <div class="dash-card"><h4>Aptitude Nodes</h4><div class="dash-stat" id="dash-aptitude-nodes" style="color: var(--accent-purple)">0</div></div>
+                    <div class="dash-card"><h4>Comm. Nodes</h4><div class="dash-stat" id="dash-comm-nodes" style="color: var(--accent-orange)">0</div></div>
+                </div>
+            </div>
+        </main>
+
+        <div id="lesson-popup" class="popup hidden">
+            <div class="popup-content">
+                <h3 id="popup-title">Module</h3>
+                <p id="popup-desc">Lesson</p>
+                <button id="start-lesson-btn" class="start-btn">Execute Run</button>
+            </div>
+            <div class="popup-arrow"></div>
+        </div>
+    </div>
+
+    <!-- LESSON UI -->
+    <div id="lesson-view" class="lesson-container hidden">
+        <header class="lesson-header">
+            <button id="close-lesson-btn" class="close-btn">✖</button>
+            <div class="progress-bar-container"><div id="progress-bar" class="progress-fill"></div></div>
+            <div class="hearts-count" id="in-game-hearts">❤️ <span class="ui-hearts"></span></div>
+        </header>
+
+        <main class="lesson-content">
+            <div id="quiz-container">
+                <h2 class="question-title">Complete the code block</h2>
+                <div class="code-editor">
+                    <div class="code-line">
+                        <span class="line-num">1</span>
+                        <span id="code-pre" class="code-text"></span>
+                        <span id="dropzone" class="dropzone"></span>
+                        <span id="code-post" class="code-text"></span>
+                    </div>
+                </div>
+                <div id="options-container" class="options-container"></div>
+            </div>
+
+            <div id="completion-screen" class="hidden" style="text-align: center; width: 100%;">
+                <h2 class="question-title glow-text" style="font-size: 2.5rem;" id="completion-title">Execution Successful!</h2>
+                <div class="code-editor" style="margin: 0 auto; text-align: center;">
+                    <!-- Completion XP icon -->
+                    <span class="code-text" style="color: var(--accent-green);" id="completion-xp">+ 15 <span class="dynamic-xp">XP</span> Earned</span><br>
+                    <span class="code-text" style="color: var(--accent-orange); font-size: 1rem;" id="completion-msg">Streak Extended! 🔥</span>
+                </div>
+            </div>
+        </main>
+        <footer id="lesson-footer" class="lesson-footer">
+            <button id="check-btn" class="check-btn" disabled>Check Syntax</button>
+        </footer>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
